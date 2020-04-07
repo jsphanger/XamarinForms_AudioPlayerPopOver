@@ -68,8 +68,8 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="NativeControls\AudioPlayer.cs" />
     <Compile Include="CustomRenderers\TabbedPageCustomRenderer.cs" />
+    <Compile Include="NativeControls\AudioPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -124,6 +124,18 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\AlbumArtwork.png" />
+    <BundleResource Include="Resources\AlbumArtwork%402x.png" />
+    <BundleResource Include="Resources\AlbumArtwork%403x.png" />
+    <BundleResource Include="Resources\ButtonPause.png" />
+    <BundleResource Include="Resources\ButtonPause%402x.png" />
+    <BundleResource Include="Resources\ButtonPause%403x.png" />
+    <BundleResource Include="Resources\ButtonPlay.png" />
+    <BundleResource Include="Resources\ButtonPlay%402x.png" />
+    <BundleResource Include="Resources\ButtonPlay%403x.png" />
+    <BundleResource Include="Resources\ButtonCollapse.png" />
+    <BundleResource Include="Resources\ButtonCollapse%402x.png" />
+    <BundleResource Include="Resources\ButtonCollapse%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
