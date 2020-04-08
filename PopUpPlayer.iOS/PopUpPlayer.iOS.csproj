@@ -136,6 +136,18 @@
     <BundleResource Include="Resources\ButtonCollapse.png" />
     <BundleResource Include="Resources\ButtonCollapse%402x.png" />
     <BundleResource Include="Resources\ButtonCollapse%403x.png" />
+    <BundleResource Include="Resources\ButtonNext.png" />
+    <BundleResource Include="Resources\ButtonNext%402x.png" />
+    <BundleResource Include="Resources\ButtonNext%403x.png" />
+    <BundleResource Include="Resources\ButtonPrevious.png" />
+    <BundleResource Include="Resources\ButtonPrevious%402x.png" />
+    <BundleResource Include="Resources\ButtonPrevious%403x.png" />
+    <BundleResource Include="Resources\ButtonSkipBack.png" />
+    <BundleResource Include="Resources\ButtonSkipBack%402x.png" />
+    <BundleResource Include="Resources\ButtonSkipBack%403x.png" />
+    <BundleResource Include="Resources\ButtonSkipForward.png" />
+    <BundleResource Include="Resources\ButtonSkipForward%402x.png" />
+    <BundleResource Include="Resources\ButtonSkipForward%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -32,7 +32,7 @@ namespace PopUpPlayer.iOS.CustomRenderers
                 var screenBounds = UIScreen.MainScreen.Bounds;
 
                 var rect = new CoreGraphics.CGRect(0, tabBarFrame.Y - 50, screenBounds.Width, 50);
-                _audioPlayer = new AudioPlayer(rect);
+                _audioPlayer = new AudioPlayer(rect) { BackgroundColor = UIColor.FromRGB(247, 247, 247) };
 
                 View.AddSubview(_audioPlayer);
             }
