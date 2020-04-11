@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <!-- Audio Player - Default Text Values -->
+    <string name="title_placeholder">Breakdown Breaking Benjamin</string>
+    <string name="subtitle_placeholder">Aurora</string>
+</resources>

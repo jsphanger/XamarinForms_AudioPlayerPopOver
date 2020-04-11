@@ -4,4 +4,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Audio Player Controls - Default Colors -->
+    <color name="trackTitle">#000</color>
+    <color name="trackSubtitle">#000</color>
+    <color name="trackProgress">#00f</color>
 </resources>
