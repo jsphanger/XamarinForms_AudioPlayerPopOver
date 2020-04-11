@@ -433,7 +433,7 @@ namespace PopUpPlayer.iOS.CustomRenderers
                 IsLargeView = !IsLargeView;
             });
         }
-
+        
         void PlayButtonTapped(UITapGestureRecognizer recognizer)
         {
             if (IsPlaying)

@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Support.Design.Widget;
 using Android.Views;
+using PopUpPlayer.Droid.NativeControls;
 using PopUpPlayer.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -23,25 +24,31 @@ namespace PopUpPlayer.Droid.Renderers
         /// Reference to our AudioPlayer View
         /// </summary>
         private Android.Views.View _audioPlayerView;
+
         /// <summary>
         /// Reference to the RelativeLayout added in the Parent Renderer. We intercept this in <see cref="ViewGroup.OnViewAdded(Android.Views.View)"/>
         /// </summary>
         private Android.Widget.RelativeLayout _relativeLayout;
 
-        public TabbedPageRenderer_Droid(Context context) : base(context)
-        {
-        }
+        public TabbedPageRenderer_Droid(Context context) : base(context) { }
 
         protected override void OnElementChanged(ElementChangedEventArgs<TabbedPage> e)
         {
             base.OnElementChanged(e);
+
             // This method can be called multiple times, but we only want to inflate the
             // audio player view and add it to the relative layout once.
             if (_audioPlayerView == null)
             {
                 // Since it is null, we assume it has not been created and not added
                 var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-                _audioPlayerView = inflater.Inflate(Resource.Layout.AudioPlayer, null);
+
+                AudioPlayer audioPlayer = new AudioPlayer(Android.App.Application.Context);
+                audioPlayer.Title = "Breakdown - Breaking Benjamin";
+                audioPlayer.SubTitle = "Aurora";
+
+                _audioPlayerView = audioPlayer.PlayerView;
+
                 if (_relativeLayout != null)
                 {
                     // Iterate through children of the RL and find the BottomNavigationView.
@@ -54,7 +61,6 @@ namespace PopUpPlayer.Droid.Renderers
                             var audioLayoutParams = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
                             audioLayoutParams.AddRule(Android.Widget.LayoutRules.Above, bnv.Id);
                             _relativeLayout.AddView(_audioPlayerView, audioLayoutParams);
-                            _audioPlayerView.FindViewById<Android.Widget.TextView>(Resource.Id.tvTitle).Text = "Audio Player Added!";
                             break;
                         }
                     }
