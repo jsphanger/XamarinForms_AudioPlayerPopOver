@@ -65,8 +65,8 @@ namespace PopUpPlayer.iOS.CustomRenderers
             PlayImage = new UIImage("ButtonPlay");
             PauseImage = new UIImage("ButtonPause");
 
-            IsNextPrevEnabled = true;
-            IsSkipEnabled = false;
+            IsNextPrevEnabled = false;
+            IsSkipEnabled = true;
 
             CreatePlayerView();
         }
@@ -78,8 +78,8 @@ namespace PopUpPlayer.iOS.CustomRenderers
             PlayImage = new UIImage("ButtonPlay");
             PauseImage = new UIImage("ButtonPause");
 
-            IsNextPrevEnabled = true;
-            IsSkipEnabled = false;
+            IsNextPrevEnabled = false;
+            IsSkipEnabled = true;
 
             CreatePlayerView();
         }
@@ -155,7 +155,55 @@ namespace PopUpPlayer.iOS.CustomRenderers
             PlayPauseButton.AddGestureRecognizer(PlayPauseButtonTappedRecognizer);
             PlayPauseButton.UserInteractionEnabled = true;
 
-            if (IsNextPrevEnabled)
+            if (IsNextPrevEnabled && IsSkipEnabled)
+            {
+                //** Previous Track
+                var prev = new UIImage("ButtonPrevious");
+                PreviousButton = new UIImageView(prev);
+                PreviousButton.Frame = new CGRect(0, 0, miniPlayerControlSize, miniPlayerControlSize);
+                PreviousButton.Alpha = 0;
+
+                PreviousButtonTappedRecognizer = new UITapGestureRecognizer(PreviousButtonTapped);
+                PreviousButton.AddGestureRecognizer(PreviousButtonTappedRecognizer);
+                PreviousButton.UserInteractionEnabled = true;
+
+                //** Next Track
+                var next = new UIImage("ButtonNext");
+                NextButton = new UIImageView(next);
+                NextButton.Frame = new CGRect(0, 0, miniPlayerControlSize * 2, miniPlayerControlSize * 2);
+                NextButton.Alpha = 0;
+
+                NextButtonTappedRecognizer = new UITapGestureRecognizer(NextButtonTapped);
+                NextButton.AddGestureRecognizer(NextButtonTappedRecognizer);
+                NextButton.UserInteractionEnabled = true;
+
+                AddSubview(PreviousButton);
+                AddSubview(NextButton);
+
+                //** Skip Backwards
+                var skipBackward = new UIImage("ButtonSkipBack");
+                SkipBackwardButton = new UIImageView(skipBackward);
+                SkipBackwardButton.Frame = new CGRect(0, 0, miniPlayerControlSize * 2, miniPlayerControlSize * 2);
+                SkipBackwardButton.Alpha = 0;
+
+                SkipBackwardButtonTappedRecognizer = new UITapGestureRecognizer(SkipBackwardButtonTapped);
+                SkipBackwardButton.AddGestureRecognizer(SkipBackwardButtonTappedRecognizer);
+                SkipBackwardButton.UserInteractionEnabled = true;
+
+                //** Skip Forwards
+                var skipForward = new UIImage("ButtonSkipForward");
+                SkipForwardButton = new UIImageView(skipForward);
+                SkipForwardButton.Frame = new CGRect(0, 0, miniPlayerControlSize * 2, miniPlayerControlSize * 2);
+                SkipForwardButton.Alpha = 0;
+
+                SkipForwardButtonTappedRecognizer = new UITapGestureRecognizer(SkipForwardButtonTapped);
+                SkipForwardButton.AddGestureRecognizer(SkipForwardButtonTappedRecognizer);
+                SkipForwardButton.UserInteractionEnabled = true;
+
+                AddSubview(SkipBackwardButton);
+                AddSubview(SkipForwardButton);
+            }
+            else if (IsNextPrevEnabled)
             {
                 //** Previous Track
                 var prev = new UIImage("ButtonPrevious");
@@ -284,7 +332,34 @@ namespace PopUpPlayer.iOS.CustomRenderers
                                                        TimeLeft.Frame.Y + TimeLeft.Frame.Height + titlePadding,
                                                        playButtonHeight, playButtonHeight);
 
-                    if (IsNextPrevEnabled)
+                    if (IsNextPrevEnabled && IsSkipEnabled)
+                    {
+                        //** Previous Track
+                        PreviousButton.Frame = new CGRect(framePaddingLeft + ((PlayPauseButton.Frame.X - framePaddingLeft) / 2.0f),
+                                                          PlayPauseButton.Frame.Y + (otherButtonHeight / 2.0f),
+                                                          otherButtonHeight, otherButtonHeight);
+                        PreviousButton.Alpha = 1;
+
+                        //** Skip Backwards
+                        SkipBackwardButton.Frame = new CGRect(framePaddingLeft,
+                                                          PlayPauseButton.Frame.Y + (otherButtonHeight / 2.0f),
+                                                          otherButtonHeight, otherButtonHeight);
+                        SkipBackwardButton.Alpha = 1;
+
+
+                        //** Next Track
+                        NextButton.Frame = new CGRect(PlayPauseButton.Frame.X + playButtonHeight + (PlayPauseButton.Frame.X - PreviousButton.Frame.X - otherButtonHeight),
+                                                      PlayPauseButton.Frame.Y + (otherButtonHeight / 2.0f),
+                                                      otherButtonHeight, otherButtonHeight);
+                        NextButton.Alpha = 1;
+
+                        //** Skip Forwards
+                        SkipForwardButton.Frame = new CGRect(PlayPauseButton.Frame.X + playButtonHeight + (PlayPauseButton.Frame.X - SkipBackwardButton.Frame.X - otherButtonHeight),
+                                                      PlayPauseButton.Frame.Y + (otherButtonHeight / 2.0f),
+                                                      otherButtonHeight, otherButtonHeight);
+                        SkipForwardButton.Alpha = 1;
+                    }
+                    else if (IsNextPrevEnabled)
                     {
                         //** Previous Track
                         PreviousButton.Frame = new CGRect(framePaddingLeft + ((PlayPauseButton.Frame.X - framePaddingLeft) / 2.0f) - (otherButtonHeight / 2.0f),
@@ -333,7 +408,14 @@ namespace PopUpPlayer.iOS.CustomRenderers
                     FullPlayerCollapseArrow.Alpha = 0;
                     TopTitle.Alpha = 0;
 
-                    if (IsNextPrevEnabled)
+                    if (IsNextPrevEnabled && IsSkipEnabled)
+                    {
+                        PreviousButton.Alpha = 0;
+                        NextButton.Alpha = 0;
+                        SkipBackwardButton.Alpha = 0;
+                        SkipForwardButton.Alpha = 0;
+                    }
+                    else if (IsNextPrevEnabled)
                     {
                         PreviousButton.Alpha = 0;
                         NextButton.Alpha = 0;
