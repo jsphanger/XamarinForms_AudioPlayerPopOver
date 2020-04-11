@@ -3,11 +3,13 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using PopUpPlayer.Services;
 using PopUpPlayer.Views;
+using PopUpPlayer.Interfaces;
 
 namespace PopUpPlayer
 {
     public partial class App : Application
     {
+        public static IAudioPlayer AudioPlayer { get { return DependencyService.Get<IAudioPlayer>(); } }
 
         public App()
         {

@@ -1,12 +1,17 @@
-﻿using System;
-using UIKit;
+﻿using UIKit;
 using CoreGraphics;
 using System.Diagnostics;
+using PopUpPlayer.Interfaces;
+using PopUpPlayer.iOS.NativeControls;
+using Xamarin.Forms;
 
-namespace PopUpPlayer.iOS.CustomRenderers
+[assembly: Dependency(typeof(AudioPlayer))]
+namespace PopUpPlayer.iOS.NativeControls
 {
-    public class AudioPlayer : UIView
+    public class AudioPlayer : UIView, IAudioPlayer 
     {
+        private static AudioPlayer _instance;
+
         private CGRect _originalFrame;
         private CGRect _originalPreviewImageFrame;
         private CGRect _originalTitleFrame;
@@ -57,34 +62,29 @@ namespace PopUpPlayer.iOS.CustomRenderers
         private UITapGestureRecognizer SkipForwardButtonTappedRecognizer { get; set; }
         private UITapGestureRecognizer SkipBackwardButtonTappedRecognizer { get; set; }
 
-        public AudioPlayer() {
+        static AudioPlayer() { }
 
-            Frame = UIScreen.MainScreen.Bounds;
-            ClipsToBounds = false;
-
-            PlayImage = new UIImage("ButtonPlay");
-            PauseImage = new UIImage("ButtonPause");
-
-            IsNextPrevEnabled = false;
-            IsSkipEnabled = true;
-
-            CreatePlayerView();
-        }
-        public AudioPlayer(CGRect frame)
+        public static AudioPlayer GetInstance(CGRect frame)
         {
-            Frame = frame;
-            ClipsToBounds = false;
+            if (_instance != null)
+                return _instance;
 
-            PlayImage = new UIImage("ButtonPlay");
-            PauseImage = new UIImage("ButtonPause");
+            _instance = new AudioPlayer();
+            _instance.Frame = frame;
+            _instance.ClipsToBounds = false;
 
-            IsNextPrevEnabled = false;
-            IsSkipEnabled = true;
+            _instance.PlayImage = new UIImage("ButtonPlay");
+            _instance.PauseImage = new UIImage("ButtonPause");
 
-            CreatePlayerView();
+            _instance.IsNextPrevEnabled = false;
+            _instance.IsSkipEnabled = true;
+
+            _instance.CreatePlayerView();
+
+            return _instance;
         }
 
-        public void CreatePlayerView()
+        private void CreatePlayerView()
         {
             var miniPlayerHeight = 50.0f;
             var progressBarHeight = 2.0f;
@@ -277,8 +277,7 @@ namespace PopUpPlayer.iOS.CustomRenderers
             _originalTimelineFrame = Timeline.Frame;
             _originalPlayButtonFrame = PlayPauseButton.Frame;
         }
-
-        public void UpdatePlayerView()
+        private void UpdatePlayerView()
         {
             Animate(.3, () => {
 
@@ -433,7 +432,12 @@ namespace PopUpPlayer.iOS.CustomRenderers
                 IsLargeView = !IsLargeView;
             });
         }
-        
+
+        public void ShowTrack()
+        {
+            _instance.Title.Text = "New Track...";
+        }
+
         void PlayButtonTapped(UITapGestureRecognizer recognizer)
         {
             if (IsPlaying)
