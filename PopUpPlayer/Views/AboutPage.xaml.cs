@@ -15,4 +15,5 @@ namespace PopUpPlayer.Views
             InitializeComponent();
         }
     }
+    
 }

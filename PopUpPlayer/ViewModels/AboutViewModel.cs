@@ -10,9 +10,9 @@ namespace PopUpPlayer.ViewModels
         public AboutViewModel()
         {
             Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://xamarin.com"));
+            ChangeTrack = new Command(() => App.AudioPlayer.ShowTrack());
         }
 
-        public ICommand OpenWebCommand { get; }
+        public ICommand ChangeTrack { get; }
     }
 }

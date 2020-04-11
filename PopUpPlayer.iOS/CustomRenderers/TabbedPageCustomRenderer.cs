@@ -1,5 +1,6 @@
 ﻿using System;
 using PopUpPlayer.iOS.CustomRenderers;
+using PopUpPlayer.iOS.NativeControls;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -32,7 +33,8 @@ namespace PopUpPlayer.iOS.CustomRenderers
                 var screenBounds = UIScreen.MainScreen.Bounds;
 
                 var rect = new CoreGraphics.CGRect(0, tabBarFrame.Y - 50, screenBounds.Width, 50);
-                _audioPlayer = new AudioPlayer(rect) { BackgroundColor = UIColor.FromRGB(247, 247, 247) };
+                _audioPlayer = AudioPlayer.GetInstance(rect);
+                _audioPlayer.BackgroundColor = UIColor.FromRGB(247, 247, 247);
 
                 View.AddSubview(_audioPlayer);
             }
