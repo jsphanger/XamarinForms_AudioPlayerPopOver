@@ -43,11 +43,8 @@ namespace PopUpPlayer.Droid.Renderers
                 // Since it is null, we assume it has not been created and not added
                 var inflater = Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
 
-                AudioPlayer audioPlayer = new AudioPlayer(Android.App.Application.Context);
-                audioPlayer.Title = "Breakdown - Breaking Benjamin";
-                audioPlayer.SubTitle = "Aurora";
-
-                _audioPlayerView = audioPlayer.PlayerView;
+                //set the audio player view
+                _audioPlayerView = AudioPlayer.GetInstance(Context).PlayerView;
 
                 if (_relativeLayout != null)
                 {
