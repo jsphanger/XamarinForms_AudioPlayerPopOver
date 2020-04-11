@@ -1,15 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:background="#ff0000"
 	android:layout_height="wrap_content">
+	<ProgressBar
+		android:id="@+id/pbProgress"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:progress="50"
+		android:padding="0dp"
+        android:progressTint="@color/trackProgress"
+        android:layout_alignParentTop="true"/>
+	<ImageView
+		android:id="@+id/ivAlbumArt"
+        android:contentDescription="Album Artwork"
+		android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+		android:layout_width="45dp"
+		android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+		android:src="@drawable/albumartwork"/>
 	<TextView
         android:id="@+id/tvTitle"
+        android:layout_toRightOf="@id/ivAlbumArt"
+        android:layout_toLeftOf="@id/ibPlayPause"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/trackTitle"
 		android:layout_width="match_parent"
-		android:layout_height="50dp"
-		android:text="Hello World!"
-        android:gravity="center"
-		android:textColor="@android:color/white"/>
-</LinearLayout>
+		android:layout_height="wrap_content"
+		android:text="@string/title_placeholder"/>
+	<TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_toRightOf="@id/ivAlbumArt"
+        android:layout_toLeftOf="@id/ibPlayPause"
+        android:textColor="@color/trackSubtitle"
+        android:layout_below="@id/tvTitle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/subtitle_placeholder"/>
+	<ImageButton
+        android:id="@+id/ibPlayPause"
+        android:background="#0000"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+        android:contentDescription="Play Pause Button"
+		android:src="@drawable/buttonplay"/>
+
+</RelativeLayout>
