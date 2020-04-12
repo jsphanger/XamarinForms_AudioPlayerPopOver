@@ -1,19 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/rlPlayer"
+    android:background="#f7f7f7"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
-	<ProgressBar
-		android:id="@+id/pbProgress"
-		style="?android:attr/progressBarStyleHorizontal"
-		android:layout_width="match_parent"
-		android:layout_height="5dp"
-		android:progress="50"
-		android:padding="0dp"
-        android:progressTint="@color/trackProgress"
-        android:layout_alignParentTop="true"/>
-	<ImageView
+
+    <ImageButton
+        android:id="@+id/ibCollapse"
+        android:src="@drawable/buttoncollapse"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        android:contentDescription="Collapse Arrow"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tvTopTitle"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
+        android:text="Currently Playing"
+        android:textColor="#000"
+        android:gravity="center"
+        android:visibility="invisible" />
+
+    <ImageView
 		android:id="@+id/ivAlbumArt"
         android:contentDescription="Album Artwork"
 		android:layout_marginTop="5dp"
@@ -22,7 +37,8 @@
 		android:layout_height="45dp"
         android:layout_alignParentLeft="true"
 		android:src="@drawable/albumartwork"/>
-	<TextView
+
+    <TextView
         android:id="@+id/tvTitle"
         android:layout_toRightOf="@id/ivAlbumArt"
         android:layout_toLeftOf="@id/ibPlayPause"
@@ -31,8 +47,9 @@
         android:textColor="@color/trackTitle"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/title_placeholder"/>
-	<TextView
+		android:text="@string/title_placeholder" />
+
+    <TextView
         android:id="@+id/tvSubtitle"
         android:layout_toRightOf="@id/ivAlbumArt"
         android:layout_toLeftOf="@id/ibPlayPause"
@@ -40,7 +57,41 @@
         android:layout_below="@id/tvTitle"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/subtitle_placeholder"/>
+		android:text="@string/subtitle_placeholder" />
+
+	<ProgressBar
+		android:id="@+id/pbProgress"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="match_parent"
+		android:layout_height="5dp"
+		android:progress="50"
+		android:padding="0dp"
+        android:progressTint="@color/trackProgress"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/tvTimePlayed"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/pbProgress"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="1:25"
+        android:textColor="#000"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tvTimeRemaining"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/pbProgress"
+        android:layout_alignRight="@id/ivAlbumArt"
+        android:layout_marginTop="5dp"
+        android:text="-2:10"
+        android:textColor="#000"
+        android:gravity="right"
+        android:visibility="invisible" />
+
 	<ImageButton
         android:id="@+id/ibPlayPause"
         android:background="#0000"
@@ -54,4 +105,59 @@
         android:contentDescription="Play Pause Button"
 		android:src="@drawable/buttonplay"/>
 
+    <ImageButton
+        android:id="@+id/ibPreviousTrack"
+        android:src="@drawable/buttonprevious"
+        android:layout_width="32dp"
+		android:layout_height="32dp"
+        android:layout_below="@id/tvTimeRemaining"
+        android:layout_toLeftOf="@id/ibPlayPause"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        android:contentDescription="Previous track"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/ibSkipBackward"
+        android:src="@drawable/buttonskipback"
+        android:layout_width="32dp"
+		android:layout_height="32dp"
+        android:layout_below="@id/tvTimeRemaining"
+        android:layout_toLeftOf="@id/ibPlayPause"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="100dp"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        android:contentDescription="Skip backward 15 seconds"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/ibNextTrack"
+        android:src="@drawable/buttonnext"
+        android:layout_width="32dp"
+		android:layout_height="32dp"
+        android:layout_below="@id/tvTimeRemaining"
+        android:layout_toRightOf="@id/ibPlayPause"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        android:contentDescription="Next track"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:id="@+id/ibSkipForward"
+        android:src="@drawable/buttonskipforward"
+        android:layout_width="32dp"
+		android:layout_height="32dp"
+        android:layout_below="@id/tvTimeRemaining"
+        android:layout_toRightOf="@id/ibPlayPause"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        android:contentDescription="Skip forward 15 seconds"
+        android:visibility="invisible" />
 </RelativeLayout>
