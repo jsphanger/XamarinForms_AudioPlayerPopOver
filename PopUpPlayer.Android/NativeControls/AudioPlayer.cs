@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using Android.Content;
+using Android.Transitions;
 using Android.Views;
 using Android.Widget;
+using Android.Util;
 using PopUpPlayer.Droid.NativeControls;
 using PopUpPlayer.Interfaces;
 using Xamarin.Forms;
@@ -18,6 +20,7 @@ namespace PopUpPlayer.Droid.NativeControls
         public Context Context { get; private set; }
         public Android.Views.View PlayerView { get; private set; }
 
+        private Android.Widget.RelativeLayout _playerLayout;
         private TextView _title, _subtitle;
         private ImageView _albumArtwork;
         private Android.Widget.ImageButton _playPauseButton;
@@ -28,6 +31,7 @@ namespace PopUpPlayer.Droid.NativeControls
         public Android.Widget.ImageButton PlayPauseButton { get { return _playPauseButton; } }
 
         public bool IsPlaying { get; set; }
+        public bool IsLargeView { get; set; }
 
         static AudioPlayer() { }
 
@@ -74,9 +78,12 @@ namespace PopUpPlayer.Droid.NativeControls
 
             _instance = new AudioPlayer();
             _instance.Context = context;
-
+            
             var inflater = _instance.Context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
             _instance.PlayerView = inflater.Inflate(Resource.Layout.AudioPlayer, null);
+
+            _instance._playerLayout = _instance.PlayerView.FindViewById<Android.Widget.RelativeLayout>(Resource.Id.rlPlayer);
+            _instance._playerLayout.SetBackgroundColor(Android.Graphics.Color.Rgb(247, 247, 247));
 
             _instance._title = _instance.PlayerView.FindViewById<TextView>(Resource.Id.tvTitle);
             _instance._subtitle = _instance.PlayerView.FindViewById<TextView>(Resource.Id.tvSubtitle);
@@ -84,9 +91,48 @@ namespace PopUpPlayer.Droid.NativeControls
             _instance._playPauseButton = _instance.PlayerView.FindViewById<Android.Widget.ImageButton>(Resource.Id.ibPlayPause);
 
             //-- setup our listeners
+            _instance._playerLayout.SetOnClickListener(new AudioPlayerPressListener(_instance.UpdatePlayerView));
             _instance._playPauseButton.SetOnClickListener(new AudioPlayerPlayPauseListener(_instance.PlayButtonTapped));
 
             return _instance;
+        }
+        private void UpdatePlayerView()
+        {
+            Debug.WriteLine("Player Tapped.");
+
+            TransitionManager.BeginDelayedTransition((ViewGroup)_instance._playerLayout.RootView);
+
+            if (!IsLargeView)
+            {
+                //make the playerLayout animate to full size.
+                ViewGroup.LayoutParams par = _instance._playerLayout.LayoutParameters;
+                par.Width = WindowManagerLayoutParams.MatchParent;
+                par.Height = WindowManagerLayoutParams.MatchParent;
+                _instance._playerLayout.LayoutParameters = par;
+            }
+            else
+            {
+                ViewGroup.LayoutParams par = _instance._playerLayout.LayoutParameters;
+                par.Width = WindowManagerLayoutParams.MatchParent;
+                par.Height = (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 50, _instance.PlayerView.Resources.DisplayMetrics);
+                _instance._playerLayout.LayoutParameters = par;
+            }
+
+            IsLargeView = !IsLargeView;
+        }
+    }
+
+    public class AudioPlayerPressListener : Java.Lang.Object, IOnClickListener
+    {
+        private Action playerTapped;
+
+        public AudioPlayerPressListener(Action playerTapped) {
+            this.playerTapped = playerTapped;
+        }
+
+        public void OnClick(Android.Views.View v)
+        {
+            playerTapped?.Invoke();
         }
     }
 
